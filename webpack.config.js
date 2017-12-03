@@ -11,46 +11,23 @@ const config = {
     },
     output: {
         filename: 'js/[name].js',
-        path: path.resolve(__dirname, 'public'),
+        chunkFilename: "js/[name]-vendor.js",
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
-            /**
             {
-                  test: /\.scss$/,
-                  use: ExtractTextPlugin.extract({
-                      fallback: 'style-loader',
-                      use: [
-                          {
-                              loader: 'css-loader',
-                              options: {importLoaders: 1}
-                          },
-                          'postcss-loader', 'sass-loader']
-                  })
-              },
-              **/
-            /**/
-            {
-                test: /\.(scss)$/,
-                use: [{
-                    loader: 'style-loader' // inject CSS to page
-                }, {
-                    loader: 'css-loader'// translates CSS into CommonJS modules
-                }, {
-                    loader: 'postcss-loader', // Run post css actions
-                    options: {
-                        plugins: function () { // post css plugins, can be exported to postcss.config.js
-                            return [
-                                require('precss'),
-                                require('autoprefixer')
-                            ];
-                        }
-                    }
-                }, {
-                    loader: 'sass-loader' // compiles SASS to CSS
-                }]
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {importLoaders: 1}
+                        },
+                        'postcss-loader', 'sass-loader']
+                })
             },
-        /**/
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -70,8 +47,16 @@ const config = {
     },
     plugins: [
         new ExtractTextPlugin('/css/[name].css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'node-static',
+            /*filename: 'node-static.js',*/
+            minChunks(module) {
+                let context = module.context;
+                return context && context.indexOf('node_modules') >= 0;
+            },
+        }),
+        /** Use BrowserSyncPlugin for php reloading compatibility*/
         new BrowserSyncPlugin({
-            //proxy: 'musial-kancelaria.dev',
             server: true,
             port: 3033,
             files: [
