@@ -4,7 +4,9 @@
   "description": "Starter project for Bootstrap 4 & Webpack workflow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "production": "cross-env NODE_ENV=production webpack"
   },
   "keywords": [],
   "author": "",
@@ -15,13 +17,21 @@
     "popper.js": "^1.12.9"
   },
   "devDependencies": {
+    "autoprefixer": "latest",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.13.2",
+    "browser-sync": "^2",
     "browser-sync-webpack-plugin": "^1.2.0",
+    "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "postcss-loader": "^2.0.9",
+    "precss": "^2.0.0",
+    "style-loader": "^0.13.2",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^3.9.1"
   },
-  "peerDependencies": {
-    "browser-sync": "^2"
-  }
+  "peerDependencies": {}
 }
