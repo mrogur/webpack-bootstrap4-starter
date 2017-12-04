@@ -11,7 +11,7 @@ const config = {
     },
     output: {
         filename: 'js/[name].js',
-        chunkFilename: "js/[name]-vendor.js",
+        chunkFilename: "js/[name].js",
         path: path.resolve(__dirname, 'dist'),
     },
     module: {
@@ -48,17 +48,16 @@ const config = {
     plugins: [
         new ExtractTextPlugin('/css/[name].css'),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'node-static',
-            /*filename: 'node-static.js',*/
+            name: 'vendor',
             minChunks(module) {
                 let context = module.context;
                 return context && context.indexOf('node_modules') >= 0;
             },
         }),
-        /** Use BrowserSyncPlugin for php reloading compatibility*/
         new BrowserSyncPlugin({
+            // proxy: 'localhost',
             server: true,
-            port: 3033,
+            port: 3000,
             files: [
                 '**/*.php'
             ],
@@ -84,7 +83,6 @@ const config = {
     ]
 };
 
-//If true JS and CSS files will be minified
 if (process.env.NODE_ENV === 'production') {
     config.plugins.push(
         new UglifyJSPlugin(),
