@@ -5,7 +5,8 @@ Additionally provided support for  PHP files watch with BrowserSync when running
 
 ### Installation
 
-You must have installed Node.js 
+You must have got Node.js installed.
+
 Clone project, navigate to project root directory and run
 
 ```bash
