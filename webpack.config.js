@@ -5,6 +5,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
+
+
 const config = {
     entry: {
         app: './assets/js/app.js'
@@ -57,9 +59,10 @@ const config = {
         new BrowserSyncPlugin({
             // proxy: 'localhost',
             server: true,
+            domain: 'localhost:3000',
             port: 3000,
             files: [
-                '**/*.php'
+                '"**/*.html", "**/*.php'
             ],
             ghostMode: {
                 clicks: false,
